@@ -14,7 +14,7 @@ public:
 	~people();
 
     //Functions
-    void insert(person p);       //Insert a user
+    void insert(person x);       //Insert a user
     void display(ostream& out);  //Displays the information in order
     bool find(int ID);           //Finds a person with a given ID
     void remove(int ID);         //Removes a person with a given ID
@@ -30,7 +30,7 @@ public:
     person();    // Null constructor
 
     //Get Function:
-    void get(istream& inputFile);
+    bool get(istream& inputFile);
 
     //Put Function
     void put(ostream& outFile);
