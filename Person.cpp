@@ -57,6 +57,7 @@ bool person::get(istream& inputFile)
 /**********************************
 * Put Function
 **********************************/
+//Update
 void person::put(ostream& outFile)
 {
 	cout << left << setw(30) << this->ID;
