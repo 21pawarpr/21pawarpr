@@ -24,7 +24,8 @@ people::people()
  **************************************/
  people::~people()
  {
-	 delete[]Map;
+	//Test pointer before using it
+	 if (Map != NULL) delete[] Map;
  }
 
  /**********************************
@@ -38,29 +39,37 @@ people::people()
  /**********************************
  * Get Function
  **********************************/
- void person::get(istream& inputFile)
+ bool person::get(istream& inputFile)
  {
-	 //Variables
-	 int tempID;
-	 string tempFirst;
-	 string tempLast;
-	 int tempAge;
-	 
+	 if (!inputFile.eof())
+	 {
+		 //Variables
+		 int tempID;
+		 string tempFirst;
+		 string tempLast;
+		 int tempAge;
 
-	 //Reading in the names, age and ID
-	 inputFile >> tempID;
-	 inputFile >> tempFirst;
-	 inputFile >> tempLast;
-	 inputFile >> tempAge;
 
-	 
+		 //Reading in the names, age and ID
+		 inputFile >> tempID;
+		 inputFile >> tempFirst;
+		 inputFile >> tempLast;
+		 inputFile >> tempAge;
 
-	 //Intialize person object with new person information
-	 this->ID = tempID;
-	 this->firstName = tempFirst;
-	 this->lastName = tempLast;
-	 this->age = tempAge;
-	 
+
+
+		 //Intialize person object with new person information
+		 this->ID = tempID;
+		 this->firstName = tempFirst;
+		 this->lastName = tempLast;
+		 this->age = tempAge;
+		 
+		 return true;
+	 }
+	 else
+	 {
+		 return false;
+	 }
  }
 
  /**********************************
@@ -79,22 +88,44 @@ people::people()
 /**************************************
  * Insert
  **************************************/
- void people::insert(person p)
+ void people::insert(person x)
  {
 	 //Variable
 	 int i;
-
-	 //Loop
-	 for (i = 0; i++; )
+	 int j;
+	 
+	 //Check if pointer has enough space
+	 if (len >= 20)
 	 {
-		 if ()
-		 {
-			 for ()
-			 {
+		 //Output to User
+		 cout << "There isn't enough space for the object inserted." << endl;
+		 return;
+	 }
 
+	 //Inserts new object in proper place 
+	 for (i = 0; i < len; i++ )
+	 {
+		 //Compares if inserted object is less than
+		 if (Map[i] < x)
+		 {
+			 //Making opening for inserted object
+			 for (j = len; j > i; j--)
+			 {
+				 // Move objects in Map[] to the right
+				 Map[j] = Map[j - 1];
 			 }
+			 //Get out of loop (Don't use break)
+			 Map[i] = x;
+			 len++;
+
+			 return;
 		 }
 	 }
+
+	 //Insertion
+	 Map[i] = x;
+	 //Updating len to have proper amount of objects
+	 len++;
  }
 /**************************************
  * Display
@@ -128,20 +159,46 @@ people::people()
 /**************************************
  * Find 
  **************************************/
- bool find(int ID)
+ bool people::find(int ID)
  {
+	 //Variables
+	 int i;
+ 
+	 // For each person in map (linear search)
+	 for (i = 0; i < len; i++) 
+	 {
+		if (Map[i].ID == ID) 
+		{
+			//Found
+			return true;
+		}
+	 }
+	 //Not Found
+	 return false;
 
  }
 /**************************************
  * Remove
  **************************************/
- void remove(int ID)
+ void people::remove(int ID)
  {
+	 //Variables
+	 int i;
+
+	 // For each person in map (linear search)
+	 for (i = 0; i < len; i++) 
+	 {
+		if (Map[i].ID == ID) 
+		{
+			//Found ID
+			for (i < len; ++i;)
+			{
+				Map[i] = Map[i + 1];
+			}
+			return;
+		}
+	 }
+
+	 
 
  }
-
-
-
-
-
-
